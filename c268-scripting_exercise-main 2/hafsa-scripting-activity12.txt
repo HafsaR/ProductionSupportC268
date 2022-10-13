@@ -1,0 +1,31 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description:
+Write a script that checks if two files have at least one common element or not.
+Display an appropriate message for both scenarios.
+The file names should be specified as parameters. You will need to create the files to test this.
+'
+function commonElement(){
+	echo "File 1: $1, File 2: $2"
+	if [[ ( -f "$1" && -f "$2" ) ]]   # check if file exist
+	then 
+		echo "File exist"
+		content1=`cat $1`
+		content2=`cat $2`
+		common=`grep -Fxf $1 $2`
+		if [[ ${#common} -gt 0 ]]
+		then
+			echo $common
+		else
+			echo "No common element"
+		fi
+
+	else
+		echo "File does not exist!"
+		exit 1
+	fi
+}
+
+commonElement $1 $2

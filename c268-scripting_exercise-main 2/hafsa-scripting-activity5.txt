@@ -1,0 +1,29 @@
+#!/bin/bash
+
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description: script for reverse a number
+'
+
+echo "Enter number"
+read number
+
+if [[ $number =~ ^[0-9]+$ ]]
+then
+	echo "Number: $number"
+
+	LENGTH=${#number}  # LENGTH of the number
+	reverseNumber=''
+	for (( i=1; i<=LENGTH; i++ ))
+	do
+		reverseNumber+=${number:LENGTH-$i:1}   # EXTRACT substring from string at specific position
+
+	done
+	echo "Reverse number is $reverseNumber"
+
+	exit 0
+else
+	echo "Please enter a number!"
+	exit 1
+fi

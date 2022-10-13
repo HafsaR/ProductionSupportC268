@@ -1,0 +1,28 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description: 
+- Read in the file
+- Sort the numbers into reverse order and output them to the screen
+- Each number should output exactly once. Duplicate numbers should not appear in the output.
+'
+
+file='activity11_numbers.txt'
+
+# read a file 
+if [ -f "$file" ]     # check if file exist. -f for regular file
+then
+	rm ./$file
+fi
+
+touch ./$file
+
+echo '5 6 3 7 4 4 9 6 7 9 8 2 3 6 4 5 1 1 3 10 12' > $file
+FILE_CONTENT=`awk '{print}' $file`
+echo "Original file content: $FILE_CONTENT"
+
+echo `sed 's/\ /\n/g' $file | sort -nr | uniq`
+
+
+exit 0

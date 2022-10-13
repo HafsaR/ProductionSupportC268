@@ -1,0 +1,34 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description:
+- A script that writes random numbers to a file (one number per line). 
+- The first parameter should be the file name. $1=filenaem
+- The second parameter is the number of lines to write. $2=nuber of lines
+- If the specified file already exists, display a relevant message and return a code.
+'
+function randomNumber(){
+	echo "File name: $1, Number of lines: $2"
+	if [ -f "$1" ]           # check if file exist
+	then
+		echo "File exist"
+		return $!
+	elif ! [[ $2 =~ ^[0-9]+$ ]]   # validate an input for line number
+	then
+		echo "Please enter valid number for number of lines!"
+	else
+		`touch $1`
+		echo "$1 File created"
+		lineNumber=1               #Initialize a line number 
+		until [ $lineNumber -gt $2 ]
+		do
+			generateRandomNumber=`echo $RANDOM`    # generate random number using $RANDOM
+			echo $generateRandomNumber
+			echo $generateRandomNumber >> $1     # write a random number to the file
+			((lineNumber++))
+		done
+	fi
+}
+randomNumber $1 $2
+exit $!

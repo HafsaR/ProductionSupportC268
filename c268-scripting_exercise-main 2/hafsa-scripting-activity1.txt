@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "USERNAME: ${USER}"       				# display username
+echo "Date: $(date +%Y.%m.%d)"					# display current date
+echo "Time: $(date '+%H:%M:%S')"					# display time
+echo "Current working directory: $(pwd)"		# current working dir
+echo "Number of files: $(ls | wc -l)"			# number of files in the dir
+echo "Biggest file in current dir: $(ls -S | awk '{print}' | head -1)"	  # Biggest file
+
+exit 0

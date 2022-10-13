@@ -1,0 +1,41 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description: 
+Imagine that you support the fix Generator script.
+Write a wrapper script to set up your environment properly. You can also edit the fixGenerator script if you need to.
+
+Your fixGenerator script should be in a folder called FixGen in your home directory. The script needs to do the following:
+
+- Check for a folder called FixGen/logs and if not present create it
+- Compress all log files that are not the latest 3 logs files generated.
+- Run the FixGenerator script with the log file being generated into the FixGen/logs directory.
+- Once complete, add a cron job that will run Monday through Friday 6 a.m. to establish your environment.
+
+Remember to code defensively and ensure that you use exit codes so we know the job has successfully run. Your script should also output its own log file where we can see the status each step of the way of each part of the script.
+
+Cronjob: crontab -e
+00 6 * * 1-5 ~/scriptingExercise/activity15.sh
+'
+# search for a folder FixGen/logs
+fixLogPath='~/FixGen/logs'
+checkFileExist=`find ~/FixGen/logs 2>&1 fileExist`
+statusCode=`echo $?`
+echo $statusCode
+
+if(( $statusCode != 0 ))
+then
+	`mkdir ~/FixGen/logs`
+	echo "dir created"
+else
+	echo "exist"
+fi
+
+`~/FixGen/fixGenerator.sh &`
+
+latestLogFile=`ls -t ~/FixLog/logs | head -3`
+echo $latestLogFile
+
+echo $? >> activity15.log
+exit $?

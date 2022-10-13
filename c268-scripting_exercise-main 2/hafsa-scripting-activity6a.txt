@@ -1,0 +1,11 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.1
+Description: 
+- create a second version of the script that then tells the user the difference between the two numbers.
+'
+
+diff=`expr $1 - $2`
+echo "Difference between two numbers is $diff"
+

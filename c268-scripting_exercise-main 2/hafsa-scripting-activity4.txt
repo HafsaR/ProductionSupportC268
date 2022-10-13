@@ -1,0 +1,31 @@
+#!/bin/bash
+
+: '
+Authot: Hafsa Degmaster
+Version: 1.0
+Description: script to validate a password:
+- Length should be 8 or more characters
+- The password should contain numbers and letters
+- There should be both uppercase and lowercase letters
+'
+
+minPasswordLength=8
+
+echo "Eneter your password: "
+read password
+
+LENGTH=${#password}     #count length of password
+
+if (( $LENGTH <  $minPasswordLength ))
+then
+	echo "Password length should be 8 or more characters"
+	exit 1
+elif [[ $password =~ [a-z] && $password =~ [A-Z] && $password =~ [0-9] ]]
+then
+	echo "Your password is $password"
+	exit 0
+else
+	echo "Incorrect password!"
+	echo -e "- The password should contain numbers and letters\n- There should be both uppercase and lowercase letters"
+	exit 1
+fi

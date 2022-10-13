@@ -1,0 +1,94 @@
+#!/bin/bash
+: '
+Author: Hafsa Degmaster
+Version: 1.0
+Description:
+1. Prompts the user for a series of 5-10 integers.
+- The user must be prompted for a minimum of 5 numbers.
+- After the user has entered 5 numbers, the program should allow the user to stop entry or enter another number.
+2. When the user chooses to stop or after 10 numbers have been entered, the program stops prompting for values and performs the following calculations:
+- the product of the integers
+- the average of the integers
+- the sum of the integers
+- the min of the integers
+- the max of the integers
+3. After performing the calculations, the program should display the following to the user:
+- the values the user entered
+- each of the calculations, using a phrase that identifies the value
+if ! [[ $number =~ ^[0-9]+$ ]]       #valiadte user input for number only
+'
+arrayNumber=()
+
+for i in {1..5}; 
+do
+	echo "Enter number"
+	read number
+	if [[ $((number)) != $number ]]
+	then
+		echo "Not a number. Please enter a number"; 
+		echo 
+		exit 1
+	else
+		arrayNumber+=($number)
+	fi	
+done
+
+
+echo "Do you want to continue. select 1 or 2."
+select uInput in yes no
+do
+	echo -e  "user input $uInput"
+	case $uInput in yes)
+		for i in {6..10};
+		do  
+			echo "Enter number"
+			read number
+		 if [[ $((number)) != $number ]]	
+		then
+				exec >&2; echo "error: Not a number";
+				exit 1
+			else
+				arrayNumber+=($number)
+			fi
+		done
+		break
+		;;
+	no)
+		break
+		;;
+	*)
+		echo "Invalid option"
+		;;
+esac
+done
+
+: ' Initialize a variable '
+product=1
+average=0
+sum=0
+min=${arrayNumber[0]}
+max=${arrayNumber[0]}
+
+for i in ${arrayNumber[@]}
+do
+	product=$((product*i))
+	sum=$((sum+i))
+	if [ $i -lt $min ]
+	then
+		min=$i
+	fi
+	if [ $i -gt $max ]
+	then
+		max=$i
+	fi
+done
+average=$(( sum / ${#arrayNumber} ))
+
+echo "User input following numbers: ${arrayNumber[*]}"       #display array of number
+echo "The product of the integers: $product"
+echo "The average of the integers: $average"
+echo "The min of the integers: $min"
+echo "The max of the integers: $max"		
+
+exit 0
+

@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: "mysql:latest"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: Root12345#
+
+      MYSQL_DATABASE: blancodb
+
+      MYSQL_USER: root
+
+      MYSQL_PASSWORD: ''
+
+    container_name: blanco-mysql
+
+    ports:
+      - "3306:3306"
